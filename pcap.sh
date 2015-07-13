@@ -13,7 +13,7 @@ list_ip_conversation() {
   tshark -nn -r $1 -T fields -e ip.dst -e ip.src | sort | uniq
   if [ $? -ne 0 ]
   then
-    echo "\e[36mPlease make sure Tshark is installed before using this script.\e[0m"
+    echo -e "\e[36mPlease make sure Tshark is installed before using this script.\e[0m"
     exit 1
   fi
 }
@@ -24,7 +24,7 @@ total_ip_frames() {
   tshark -nn -r $1 -T fields -e ip.dst -e ip.src | sort | uniq -c | sed 's/^[ \t]*//'
   if [ $? -ne 0 ]
   then
-    echo "\e[36mPlease make sure Tshark is installed before using this script.\e[0m"
+    echo -e "\e[36mPlease make sure Tshark is installed before using this script.\e[0m"
     exit 1
   fi
 }
@@ -35,7 +35,7 @@ list_ip() {
   tshark -nn -r $1 -T fields -e ip.src | sort | uniq | sed 's/$/,/g'
   if [ $? -ne 0 ]
   then
-    echo "\e[36mPlease make sure Tshark is installed before using this script.\e[0m"
+    echo -e "\e[36mPlease make sure Tshark is installed before using this script.\e[0m"
     exit 1
   fi
 }
@@ -113,7 +113,7 @@ rewrite_ip() {
   tcpip $1 $2 $3; python tcpip.py; rm tcpip.py
   if [ $? -ne 0 ]
   then
-    echo "\e[36mPlease make sure python and python-scapy is installed before using this script.\e[0m"
+    echo -e "\e[36mPlease make sure python and python-scapy is installed before using this script.\e[0m"
     exit 1
   fi
   echo -e "\e[34mIP address written in $2\e[0m"
@@ -126,7 +126,7 @@ rewrite_mac() {
   tcpmac $1 $2 $3; python tcpmac.py; rm tcpmac.py
   if [ $? -ne 0 ]
   then
-    echo "\e[36mPlease make sure python and python-scapy is installed before using this script.\e[0m"
+    echo -e "\e[36mPlease make sure python and python-scapy is installed before using this script.\e[0m"
     exit 1
   fi
   echo -e "\e[34mMAC address written in $2\e[0m"
@@ -155,7 +155,7 @@ while getopts spmo opts; do
       #echo >> config.file
       tshark -nn -r $2 -T fields -e ip.src | sort | uniq | sed 's/$/,/g' > config.file
       echo
-      echo "File created as config.file"
+      echo -e "\e[34mIPs logged in config.file\e[0m"
       #echo "##########################################################" >> config.file
       ;;
     p)
