@@ -117,7 +117,6 @@ rewrite_ip() {
     exit 1
   fi
   echo -e "\e[34mIP address written in $2\e[0m"
-
 }
 
 rewrite_mac() {
