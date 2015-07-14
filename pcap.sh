@@ -19,8 +19,8 @@ list_ip_conversation() {
 }
 
 total_ip_frames() {
-  echo -e "\e[33mTotal IP frames per conversation\e[0m"
-  echo -e "\e[33m--------------------------------\e[0m"
+  echo -e "\e[33mTotal frames per conversation\e[0m"
+  echo -e "\e[33m-----------------------------\e[0m"
   #tshark -nn -r $1 -T fields -e ip.dst -e ip.src | sort | uniq -c | sed 's/^[ \t]*//' | awk '{print $2"\t" "<-> " $3"\t" "occurrences = "$1}' | column -t
   printf "\e[1;36mSource IP\t\tDestination IP\t\tNo. Occurrences\e[0m\n" && tshark -r 2015-05-08-traffic-analysis-exercise.pcap -q -z conv,ip | awk '{print $1 "\t\t" $3 "\t\t" $8}' | sed 's/IPv4.*//g' | sed 's/Filter.*//g' | sed 's/=*//g'| sed 's/Total//g' | sed 's/|//g' | sed 's/Bytes.*//g' | sed '/^\s*$/d'
   if [ $? -ne 0 ]
